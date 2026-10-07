@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>M!dn!ght</title>
+
+<style>
+
+* {
+box-sizing: border-box;
+}
+
+html, body {
+margin: 0;
+width: 100%;
+height: 100%;
+}
+
+body {
+background: #000;
+color: #fff;
+font-family: Arial, Helvetica, sans-serif;
+overflow: hidden;
+}
+
+/* ============================= */
+/* TŁO */
+/* ============================= */
+
+.background {
+position: fixed;
+inset: 0;
+background: #000;
+z-index: -10;
+}
+
+.background::after {
+content: "";
+position: absolute;
+
+width: 800px;
+height: 800px;
+
+left: 50%;
+top: 50%;
+
+transform: translate(-50%, -50%);
+
+background: radial-gradient(
+circle,
+rgba(255,255,255,0.07) 0%,
+rgba(255,255,255,0.02) 30%,
+transparent 70%
+);
+}
+
+/* ============================= */
+/* PIORUNY */
+/* ============================= */
+
+.lightning {
+position: fixed;
+
+width: 180px;
+height: 300px;
+
+z-index: 10;
+
+opacity: 0;
+
+filter:
+drop-shadow(0 0 4px white)
+drop-shadow(0 0 15px white)
+drop-shadow(0 0 35px rgba(255,255,255,0.7));
+
+pointer-events: none;
+}
+
+/* Lewy górny */
+
+.l1 {
+left: 8%;
+top: 5%;
+
+transform: rotate(-12deg);
+
+animation: lightning1 5.2s infinite;
+}
+
+/* Prawy górny */
+
+.l2 {
+right: 7%;
+top: 10%;
+
+transform: rotate(15deg) scaleX(-1);
+
+animation: lightning2 5.2s infinite;
+}
+
+/* Lewy dół */
+
+.l3 {
+left: 15%;
+bottom: 5%;
+
+transform: rotate(18deg);
+
+animation: lightning3 5.2s infinite;
+}
+
+/* Prawy dół */
+
+.l4 {
+right: 12%;
+bottom: 3%;
+
+transform: rotate(-20deg) scaleX(-1);
+
+animation: lightning4 5.2s infinite;
+}
+
+/* ============================= */
+/* FLASH CAŁEGO EKRANU */
+/* ============================= */
+
+.flash {
+position: fixed;
+inset: 0;
+
+background: white;
+
+opacity: 0;
+
+z-index: 100;
+
+pointer-events: none;
+
+animation: screenFlash 5.2s infinite;
+}
+
+/* ============================= */
+/* STRONA */
+/* ============================= */
+
+.page {
+width: 100%;
+height: 100vh;
+
+display: flex;
+flex-direction: column;
+
+justify-content: center;
+align-items: center;
+
+text-align: center;
+}
+
+/* ============================= */
+/* LOGO */
+/* ============================= */
+
+.logo {
+position: relative;
+
+font-size: clamp(55px, 15vw, 155px);
+
+font-weight: 900;
+
+letter-spacing: -7px;
+
+color: #fff;
+
+text-transform: uppercase;
+
+user-select: none;
+
+animation:
+slowPulse 5.8s ease-in-out infinite,
+logoGlitch 5.2s infinite;
+}
+
+/* ============================= */
+/* KRESKA POD LOGO */
+/* ============================= */
+
+.line {
+width: 170px;
+height: 2px;
+
+margin-top: 24px;
+margin-bottom: 25px;
+
+background: white;
+
+animation: linePulse 5.8s ease-in-out infinite;
+}
+
+/* ============================= */
+/* NAPIS */
+/* ============================= */
+
+.subtitle {
+font-size: 12px;
+
+letter-spacing: 8px;
+
+color: #777;
+
+text-transform: uppercase;
+}
+
+/* ============================= */
+/* BUTTON */
+/* ============================= */
+
+.button {
+margin-top: 45px;
+
+padding: 14px 34px;
+
+border: 1px solid #444;
+
+color: #aaa;
+
+text-decoration: none;
+
+font-size: 11px;
+
+letter-spacing: 4px;
+
+text-transform: uppercase;
+
+transition: 0.25s;
+}
+
+.button:hover {
+color: #000;
+
+background: white;
+
+border-color: white;
+
+box-shadow:
+0 0 15px white,
+0 0 50px rgba(255,255,255,0.5);
+}
+
+/* ============================= */
+/* DÓŁ */
+/* ============================= */
+
+.bottom {
+position: absolute;
+
+bottom: 22px;
+
+color: #333;
+
+font-size: 9px;
+
+letter-spacing: 5px;
+
+text-transform: uppercase;
+}
+
+/* ============================= */
+/* PULS LOGO */
+/* ============================= */
+
+@keyframes slowPulse {
+
+0%, 100% {
+color: #555;
+
+text-shadow:
+0 0 3px rgba(255,255,255,0.15);
+
+transform: scale(1);
+}
+
+50% {
+color: #fff;
+
+text-shadow:
+0 0 8px white,
+0 0 30px rgba(255,255,255,0.65),
+0 0 70px rgba(255,255,255,0.25);
+
+transform: scale(1.012);
+}
+}
+
+/* ============================= */
+/* KRESKA PULSUJE */
+/* ============================= */
+
+@keyframes linePulse {
+
+0%, 100% {
+opacity: 0.2;
+box-shadow: none;
+}
+
+50% {
+opacity: 1;
+
+box-shadow:
+0 0 8px white,
+0 0 25px rgba(255,255,255,0.6);
+}
+}
+
+/* ============================= */
+/* GLITCH LOGO */
+/* ============================= */
+
+@keyframes logoGlitch {
+
+0%, 88%, 100% {
+filter: none;
+}
+
+89% {
+filter: contrast(1.8);
+transform: translateX(-2px);
+}
+
+89.3% {
+filter: none;
+transform: translateX(0);
+}
+
+90% {
+filter: contrast(2);
+transform: translateX(2px);
+}
+
+90.3% {
+filter: none;
+transform: translateX(0);
+}
+}
+
+/* ============================= */
+/* PIORUN 1 */
+/* ============================= */
+
+@keyframes lightning1 {
+
+0%, 58%, 100% {
+opacity: 0;
+}
+
+59% {
+opacity: 1;
+}
+
+59.15% {
+opacity: 0.15;
+}
+
+59.3% {
+opacity: 1;
+}
+
+59.55% {
+opacity: 0;
+}
+}
+
+/* ============================= */
+/* PIORUN 2 */
+/* ============================= */
+
+@keyframes lightning2 {
+
+0%, 63%, 100% {
+opacity: 0;
+}
+
+64% {
+opacity: 0.9;
+}
+
+64.2% {
+opacity: 0;
+}
+
+64.35% {
+opacity: 0.8;
+}
+
+64.6% {
+opacity: 0;
+}
+}
+
+/* ============================= */
+/* PIORUN 3 */
+/* ============================= */
+
+@keyframes lightning3 {
+
+0%, 68%, 100% {
+opacity: 0;
+}
+
+69% {
+opacity: 1;
+}
+
+69.2% {
+opacity: 0;
+}
+}
+
+/* ============================= */
+/* PIORUN 4 */
+/* ============================= */
+
+@keyframes lightning4 {
+
+0%, 72%, 100% {
+opacity: 0;
+}
+
+73% {
+opacity: 1;
+}
+
+73.15% {
+opacity: 0.2;
+}
+
+73.4% {
+opacity: 0.9;
+}
+
+73.7% {
+opacity: 0;
+}
+}
+
+/* ============================= */
+/* FLASH */
+/* ============================= */
+
+@keyframes screenFlash {
+
+0%, 58%, 100% {
+opacity: 0;
+}
+
+59.1% {
+opacity: 0.18;
+}
+
+59.25% {
+opacity: 0;
+}
+
+64.1% {
+opacity: 0.12;
+}
+
+64.25% {
+opacity: 0;
+}
+
+69.05% {
+opacity: 0.16;
+}
+
+69.2% {
+opacity: 0;
+}
+
+73.1% {
+opacity: 0.2;
+}
+
+73.3% {
+opacity: 0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<!-- PIORUNY -->
+
+<svg class="lightning l1" viewBox="0 0 100 180">
+<polyline
+points="58,0 20,75 48,72 30,125 75,58 47,62 70,0"
+fill="white"
+stroke="white"
+stroke-width="2"
+stroke-linejoin="round"/>
+</svg>
+
+<svg class="lightning l2" viewBox="0 0 100 180">
+<polyline
+points="58,0 20,75 48,72 30,125 75,58 47,62 70,0"
+fill="white"
+stroke="white"
+stroke-width="2"
+stroke-linejoin="round"/>
+</svg>
+
+<svg class="lightning l3" viewBox="0 0 100 180">
+<polyline
+points="58,0 20,75 48,72 30,125 75,58 47,62 70,0"
+fill="white"
+stroke="white"
+stroke-width="2"
+stroke-linejoin="round"/>
+</svg>
+
+<svg class="lightning l4" viewBox="0 0 100 180">
+<polyline
+points="58,0 20,75 48,72 30,125 75,58 47,62 70,0"
+fill="white"
+stroke="white"
+stroke-width="2"
+stroke-linejoin="round"/>
+</svg>
+
+<div class="flash"></div>
+
+<div class="page">
+
+<div class="logo">
+M!dn!ght
+</div>
+
+<div class="line"></div>
+
+<div class="subtitle">
+Trap • Rap • Midnight
+</div>
+
+<a href="#" class="button">
+Enter
+</a>
+
+<div class="bottom">
+M!dn!ght © 2026
+</div>
+
+</div>
+
+</body>
+</html>
+
